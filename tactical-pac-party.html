@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tactical Campaigns, the PAC and the Party | How We Found It | Utah Hive Politics</title>
+<meta name="description" content="How the Hive traced 2026 money between Tactical Campaigns, Prosperous Utah Communities PAC and the Utah Republican Party, step by step, with the public record for each step.">
+<style>
+  :root{
+    --slate:#115e59;
+    --slate-deep:#0b3b38;
+    --page:#ffffff;
+    --box:#eef6f5;
+    --box-2:#dcefec;
+    --ink:#14213d;
+    --ink-soft:#4a5466;
+    --copper:#1d5fbf;
+    --copper-bright:#2b7de9;
+    --copper-bg:#eaf2ff;
+    --rule:#c5dcd8;
+    --on-slate:#e3f2f0;
+    --on-slate-soft:#a9cfc9;
+    --ok:#1d6b3a; --part:#8a5a00; --no:#9b1c1c; --unk:#4a5568;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;font-size:112.5%;}
+  body{margin:0;background:var(--page);color:var(--ink);font-family:"Newsreader",Georgia,"Iowan Old Style",serif;line-height:1.55;}
+  a{color:var(--copper);}
+
+
+  .topband{background:var(--slate-deep);color:var(--on-slate);padding:10px 24px;font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-size:.72rem;letter-spacing:.06em;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
+  .topband a{color:var(--on-slate);text-decoration:none;border-bottom:1px solid rgba(230,236,245,.4);}
+
+  header.case-header{background:var(--slate);color:#fff;padding:56px 24px 40px;position:relative;overflow:hidden;border-bottom:5px solid var(--copper-bright);}
+  header.case-header::after{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;border:1px solid rgba(230,236,245,.15);border-radius:50%;}
+  .case-wrap{max-width:880px;margin:0 auto;position:relative;}
+  .case-eyebrow{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.78rem;letter-spacing:.08em;color:#9fe3d9;margin:0 0 14px;}
+  .case-title{font-size:2.4rem;line-height:1.14;margin:0 0 10px;font-weight:600;max-width:22ch;}
+  .case-title em{color:#9fe3d9;}
+  .case-sub{font-size:1.12rem;color:var(--on-slate);font-style:italic;margin:0 0 24px;max-width:58ch;}
+  .meta-row{display:flex;flex-wrap:wrap;gap:10px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.74rem;}
+  .meta-pill{border:1px solid rgba(230,236,245,.35);padding:6px 12px;border-radius:2px;color:var(--on-slate);}
+  .pub-date{margin-top:14px;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.76rem;letter-spacing:.03em;color:#9fe3d9;}
+
+  main{max-width:880px;margin:0 auto;padding:44px 24px 90px;}
+  section{margin-bottom:52px;}
+  h2.section-head{font-size:1.5rem;margin:0 0 18px;border-bottom:2px solid var(--slate);padding-bottom:10px;color:var(--slate-deep);}
+  h3{color:var(--slate-deep);}
+  p{margin:0 0 16px;max-width:68ch;}
+  ul{max-width:68ch;}
+  .lede{font-size:1.12rem;color:var(--ink-soft);}
+
+  .hs-short{background:var(--box);border:1px solid var(--rule);border-left:6px solid var(--copper-bright);padding:18px 22px;margin:0 0 30px}
+  .hs-short h2{font-size:1.2rem;margin:0 0 10px;border:0;padding:0;color:var(--slate-deep)}
+  .hs-short ul{margin:0;padding-left:20px}
+  .hs-short li{margin-bottom:8px}
+  .hs-toc{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 26px}
+  .hs-toc a{font-family:Arial,sans-serif;font-size:.82rem;padding:7px 12px;border:1px solid var(--rule);background:var(--box);color:var(--ink);text-decoration:none;border-radius:999px}
+  .hs-toc a:hover{border-color:var(--copper)}
+  .hs-plain{display:flex;flex-wrap:wrap;align-items:center;gap:12px;background:var(--copper-bg);border:1px dashed var(--copper);padding:14px 18px;margin:0 0 26px;font-size:1rem}
+  .hs-btn{display:inline-block;background:var(--copper);color:#fff !important;text-decoration:none;font-family:Arial,sans-serif;font-weight:bold;padding:10px 16px;border-radius:6px}
+  .hs-pages{background:var(--box);border:1px solid var(--rule);padding:14px 18px;margin:0 0 30px}
+  .hs-pages summary{font-family:Arial,sans-serif;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);cursor:pointer}
+  .hs-pages ol{margin:10px 0 0;padding-left:22px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:4px 18px}
+  .hs-pages li{font-size:.95rem;line-height:1.35}
+  .hs-pages li.cur{font-weight:bold}
+  .hs-pages li.cur a{color:var(--ink);text-decoration:none}
+  .hs-pages small{display:block;font-size:.8rem;color:var(--ink-soft);font-weight:normal}
+
+  .figure-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin:0 0 30px;}
+  .figure-cell{background:var(--slate);color:#fff;padding:22px 18px;text-align:center;}
+  .figure-cell .num{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:1.7rem;font-weight:700;color:#9fe3d9;display:block;margin-bottom:6px;}
+  .figure-cell .cap{font-size:.84rem;color:var(--on-slate);}
+  @media (max-width:640px){.figure-grid{grid-template-columns:1fr;}}
+
+  .note{background:var(--box);border:1px dashed var(--rule);padding:14px 18px;font-size:.96rem;color:var(--ink-soft);margin:0 0 20px}
+  .callout{background:var(--box);border-left:4px solid var(--slate);padding:16px 20px;margin:18px 0;font-size:.98rem;}
+  .callout strong{color:var(--slate-deep);}
+  .estimate{background:#eaf2ff;border:2px solid var(--part);padding:14px 18px;margin:16px 0;font-size:.98rem;}
+  .estimate b{color:var(--part);}
+
+  table.money{width:100%;border-collapse:collapse;background:#fff;font-size:.95rem;margin-bottom:10px}
+  table.money th,table.money td{border:1px solid var(--rule);padding:10px 12px;text-align:left;vertical-align:top}
+  table.money th{background:var(--slate);color:#fff;font-family:Arial,sans-serif;font-size:.82rem}
+  table.money td.n{text-align:right;font-family:Arial,sans-serif;font-weight:bold;white-space:nowrap}
+  table.money tr.total td{font-weight:700;background:var(--box-2)}
+  .tbl-wrap{overflow-x:auto;}
+
+  details.gl{border:1px solid var(--rule);background:#fff;margin-bottom:8px;padding:12px 16px;}
+  details.gl summary{font-weight:700;cursor:pointer;color:var(--slate-deep);}
+  details.gl p{margin:8px 0 0;font-size:.98rem;}
+
+  .legend-v{display:flex;flex-wrap:wrap;gap:8px 16px;margin:8px 0 14px;}
+  .filters{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 18px;}
+  .filters button{font:inherit;font-family:Arial,sans-serif;font-size:.95rem;font-weight:600;border:2px solid var(--slate);background:#fff;color:var(--slate);padding:7px 14px;border-radius:999px;cursor:pointer;min-height:44px;}
+  .filters button[aria-pressed="true"]{background:var(--slate);color:#fff;}
+  .claim{background:#fff;border:1px solid var(--rule);border-left:6px solid var(--unk);padding:16px 18px;margin-bottom:14px;}
+  .claim.ok{border-left-color:var(--ok);} .claim.part{border-left-color:var(--part);} .claim.no{border-left-color:var(--no);} .claim.unk{border-left-color:var(--unk);}
+  .claim .said{font-size:1.2rem;line-height:1.35;margin-bottom:6px;font-weight:600;}
+  .claim .who{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.72rem;color:var(--ink-soft);margin-bottom:10px;}
+  .claim p{font-size:1rem;margin-bottom:8px;}
+  .claim ul{margin:0 0 8px;padding-left:20px;}
+  .claim .src{font-size:.86rem;color:var(--ink-soft);font-style:italic;margin:6px 0 0;}
+  .v{display:inline-block;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.72rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:3px 9px;border:2px solid;margin-bottom:8px;background:#fff;}
+  .v.ok{color:var(--ok);border-color:var(--ok);} .v.part{color:var(--part);border-color:var(--part);}
+  .v.no{color:var(--no);border-color:var(--no);} .v.unk{color:var(--unk);border-color:var(--unk);}
+  .grp{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--copper);margin:26px 0 10px;}
+
+  .chart{background:#fff;border:1px solid var(--rule);padding:18px 20px;margin:18px 0;}
+  .chart h3{font-size:1.2rem;margin:0 0 6px;}
+  .chart .sub{font-family:Arial,sans-serif;font-size:.88rem;color:var(--ink-soft);margin-bottom:10px;}
+  .chart .src{font-size:.84rem;color:var(--ink-soft);font-style:italic;margin-top:10px;}
+  .bar-row{margin-bottom:16px;}
+  .bar-row .lbl{font-family:Arial,sans-serif;font-size:1rem;font-weight:700;margin-bottom:4px;line-height:1.3;}
+  .bar-track{display:flex;height:42px;background:var(--box);border:1px solid var(--rule);}
+  .bar-track div{display:flex;align-items:center;justify-content:flex-start;padding-left:6px;color:#fff;font-family:Arial,sans-serif;font-weight:700;font-size:.9rem;white-space:nowrap;overflow:hidden;}
+  .b25{background:var(--slate);} .b40{background:var(--copper-bright);color:#fff !important;}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;font-family:Arial,sans-serif;font-size:.92rem;margin-top:6px;}
+  .legend span::before{content:"";display:inline-block;width:18px;height:18px;margin-right:6px;vertical-align:-3px;}
+  .legend .l25::before{background:var(--slate);} .legend .l40::before{background:var(--copper-bright);}
+
+  .flow{background:var(--box);border:1px solid var(--rule);padding:22px 18px;margin:18px 0;}
+  .flow-row{display:grid;grid-template-columns:1fr;gap:14px;max-width:560px;margin:0 auto;}
+  .flow-row.three{grid-template-columns:repeat(3,minmax(0,1fr));max-width:860px;}
+  .fbox{background:#fff;border:3px solid var(--slate);border-radius:8px;padding:16px 18px;font-size:1.02rem;line-height:1.45;text-align:center;}
+  .fbox .fh{font-weight:700;font-size:1.2rem;margin-bottom:6px;color:var(--slate-deep);}
+  .fbox.pub{border-color:#2f6f8f;} .fbox.pub .fh{color:#2f6f8f;}
+  .fbox.co{border-color:var(--copper-bright);} .fbox.co .fh{color:var(--copper);}
+  .fbox.main{background:var(--slate);color:#fff;border-color:var(--slate);} .fbox.main .fh{color:#9fe3d9;font-size:1.5rem;}
+  .arrow{text-align:center;font-size:30px;color:var(--copper-bright);margin:10px 0;line-height:1.2;}
+  .arrow span{display:block;font-family:Arial,sans-serif;font-size:1rem;font-weight:700;color:var(--ink-soft);}
+  .diagram-caption{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.7rem;letter-spacing:.04em;text-transform:uppercase;color:var(--ink-soft);margin-top:12px;text-align:center;}
+  @media(max-width:700px){.flow-row.three{grid-template-columns:1fr;}}
+
+  #map{height:460px;border:1px solid var(--rule);margin:14px 0;}
+
+  .ask-list{list-style:none;margin:0;padding:0;max-width:none}
+  .ask-list li{background:var(--box);border-left:4px solid var(--copper-bright);padding:14px 18px;margin-bottom:10px;font-size:.98rem;}
+  .ask-list li strong{color:var(--copper);}
+
+  .tl{list-style:none;margin:0;padding:0;border-left:4px solid var(--copper-bright)}
+  .tl li{position:relative;padding:0 0 18px 22px;font-size:1rem}
+  .tl li::before{content:"";position:absolute;left:-11px;top:4px;width:14px;height:14px;border-radius:50%;background:#fff;border:4px solid var(--copper-bright)}
+  .tl li b{display:block;font-family:Arial,sans-serif;font-size:.9rem;color:var(--copper)}
+  .hs-updates{font-family:Arial,sans-serif;font-size:.85rem;color:var(--ink-soft);margin-top:14px}
+
+  .hs-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+  .hs-cards a{display:block;background:var(--box);border:1px solid var(--rule);border-top:5px solid var(--copper-bright);padding:14px 16px;text-decoration:none;color:var(--ink)}
+  .hs-cards a b{display:block;margin-bottom:4px}
+  .hs-cards a span{font-size:.88rem;color:var(--ink-soft)}
+  .hs-flips{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+  .hs-flip{text-align:left;background:var(--box);border:1px solid var(--rule);border-top:5px solid var(--slate);padding:14px 16px;cursor:pointer;font:inherit;color:var(--ink);min-height:96px}
+  .hs-flip .ft{font-weight:bold;font-size:1.05rem}
+  .hs-flip .fh{font-family:Arial,sans-serif;font-size:.75rem;color:var(--ink-soft);margin-top:6px}
+  .hs-flip .fd{display:none;margin-top:8px;font-size:.95rem}
+  .hs-flip[aria-expanded="true"] .fd{display:block}
+  .hs-flip[aria-expanded="true"] .fh{display:none}
+  .hs-counter{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+  .hs-counter div{background:var(--slate);color:#fff;padding:14px;text-align:center}
+  .hs-counter .n{font-family:Arial,sans-serif;font-size:1.8rem;font-weight:bold}
+  .hs-counter .l{font-size:.82rem}
+
+  .sources-block{background:transparent;border:none;border-top:2px solid var(--slate);padding:0;margin-top:8px}
+  .sources-block summary{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.85rem;letter-spacing:.04em;color:var(--ink);padding:14px 0;cursor:pointer}
+  .sources-block ol{margin:0 0 16px;padding-left:20px;font-size:.92rem;color:var(--ink-soft);max-width:none}
+  .sources-block li{margin-bottom:10px;}
+
+  footer{background:var(--slate-deep);color:var(--on-slate-soft);padding:32px 24px;text-align:center;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.76rem;letter-spacing:.04em;}
+  footer a{color:#9fe3d9;}
+  @media(max-width:700px){
+    main{padding:34px 16px 80px}
+    header.case-header{padding:40px 16px 30px}
+    .case-title{font-size:1.8rem}
+    .topband{padding:10px 16px}
+  }
+
+/* ===== How We Found It standard (teal & blue) — header, footer, Where/Who, call number ===== */
+.up-top{background:#0b3b38;color:#a9cfc9;font:600 13px 'IBM Plex Mono',monospace;letter-spacing:.06em;text-transform:uppercase}
+.up-top .in{max-width:900px;margin:0 auto;padding:10px 20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.up-top a{color:#e3f2f0;text-decoration:none}
+.up-ww{max-width:900px;margin:26px auto 6px;padding:0 20px}
+.up-where{border:3px solid #115e59;border-radius:10px;overflow:hidden;background:#fff}
+.up-where-h{background:#115e59;color:#fff;padding:12px 18px}
+.up-lbl{font:600 12.5px 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#9fe3d9}
+.up-where-h .pl{font-size:21px;font-weight:700;margin-top:2px}
+.up-who{margin:14px 16px 16px;border:2px solid #1d5fbf;border-radius:8px}
+.up-who-h{background:#eaf2ff;color:#1d5fbf;padding:6px 12px;font:600 12.5px 'IBM Plex Mono',monospace;letter-spacing:.14em;border-bottom:2px solid #1d5fbf}
+.up-who ul{list-style:none;margin:0;padding:6px 12px}
+.up-who li{padding:6px 0;border-bottom:1px solid #dcebe8;font-size:17px;margin:0}
+.up-who li:last-child{border-bottom:none}
+.up-who li b{color:#115e59}
+.up-connect ul{list-style:none;margin:0;padding:0}
+.up-connect li{border:1px solid #c5dcd8;border-left:5px solid #1d5fbf;background:#fff;padding:10px 14px;margin:0 0 10px;font-size:17px}
+.up-connect li a{font-weight:700;color:#115e59}
+.up-connect li span{display:block;color:#4a5466;font-size:15.5px;margin-top:2px}
+.up-sources details{border:1px solid #c5dcd8;background:#eef6f5;padding:12px 16px}
+.up-sources summary{cursor:pointer;font:600 15px 'IBM Plex Mono',monospace;color:#115e59}
+.up-sources li{margin:8px 0;font-size:16px}
+.up-foot{background:#0b3b38;color:#a9cfc9;margin-top:30px;padding:28px 0 36px;font-size:16px}
+.up-foot .in{max-width:900px;margin:0 auto;padding:0 20px}
+.up-foot a{color:#9fe3d9}
+#up-shelf{border:2px dashed #a9cfc9;border-radius:10px;padding:16px 18px;margin-bottom:20px;color:#e3f2f0}
+.up-cn-big{font:600 17px 'IBM Plex Mono',monospace;margin-bottom:12px}
+.up-cn-big b{color:#9fe3d9}
+.up-nav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.up-nav-btn{flex:1;min-width:220px;background:#115e59;border:1px solid #2f7d76;border-radius:8px;padding:12px 14px;color:#fff;text-decoration:none;font-size:16px}
+.up-nav-btn:last-child{text-align:right}
+.up-nav-btn b{color:#9fe3d9;font-family:'IBM Plex Mono',monospace}
+.up-nav-btn.up-off{opacity:.5}
+.up-list summary{cursor:pointer;font:600 15px 'IBM Plex Mono',monospace;color:#9fe3d9;margin-bottom:6px}
+.up-list ol{list-style:none;margin:8px 0 0;padding:0}
+.up-list li{margin:0;padding:5px 0;border-bottom:1px solid #1f5a55}
+.up-list li a{color:#e3f2f0;text-decoration:none}
+.up-list li.up-shelf-head{color:#9fe3d9;font:600 13px 'IBM Plex Mono',monospace;letter-spacing:.1em;padding-top:12px;border-bottom:none}
+.up-list li.up-here a{color:#fff;font-weight:700}
+.up-cn{font-family:'IBM Plex Mono',monospace;color:#9fe3d9;margin-right:6px}
+.up-search{font-size:15px;margin-top:12px}
+.up-sub{font-size:14.5px;margin-top:8px;color:#a9cfc9}
+  .up-connect h2,.up-sources h2{font-size:1.5rem;margin:0 0 18px;border-bottom:2px solid var(--slate);padding-bottom:10px;color:var(--slate-deep);}
+  .up-sources ul{max-width:none;padding-left:20px;color:var(--ink-soft);}
+  .up-connect ul,.up-who ul{max-width:none;}
+
+/* Utah Hive Politics branding bars (top and bottom) */
+.hb-bar{background:#0d0b0a;border-bottom:1px solid #3a2f1c;padding:10px 20px;}
+.hb-bar a{display:flex;align-items:center;gap:12px;max-width:1100px;margin:0 auto;text-decoration:none;}
+.hb-bar img{width:52px;height:52px;border-radius:4px;display:block;flex:none;}
+.hb-name{font-family:'Cinzel','Trajan Pro',Georgia,serif;color:#d4af37;font-size:16px;letter-spacing:.14em;text-transform:uppercase;line-height:1.2;display:block;}
+.hb-sub{font-family:Georgia,serif;font-style:italic;color:#b8956a;font-size:12.5px;letter-spacing:.02em;display:block;margin-top:2px;}
+.hb-foot{background:#0d0b0a;color:#b8956a;text-align:center;padding:26px 20px 30px;font-family:Georgia,serif;}
+.hb-foot img{width:52px;height:52px;display:block;margin:0 auto 10px;}
+.hb-foot .hb-name{font-size:14px;}
+.hb-foot .hb-tag{font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:#8a7650;margin-top:8px;display:block;}
+@media(max-width:600px){.hb-bar{padding:8px 16px}.hb-bar img{width:38px;height:38px}.hb-name{font-size:13px}.hb-sub{font-size:11.5px}}
+
+.hb-line-top{display:block;font-family:Georgia,serif;color:#e8d9b5;font-size:13px;margin-top:4px}
+.hb-line{max-width:720px;margin:14px auto 0;color:#e8d9b5;font-size:15.5px;line-height:1.5}
+.hb-tips{margin:16px 0 4px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.hb-btn{display:inline-block;border:2px solid #d4af37;background:#d4af37;color:#0d0b0a;font:700 15px Georgia,serif;padding:10px 18px;border-radius:6px;text-decoration:none}
+.hb-btn2{background:transparent;color:#d4af37}
+.hb-small{font-size:12.5px;color:#8a7650;margin:6px 0 0}
+@media(max-width:600px){.hb-line-top{font-size:11.5px}}
+
+/* Round 2: short version + questions to ask */
+.up-short{max-width:900px;margin:24px auto 6px;padding:18px 22px;background:#eaf2ff;border-left:6px solid #1d5fbf;border-radius:6px}
+.up-short h2{margin:0 0 8px;font-size:24px;color:#115e59;border:0;padding:0}
+.up-short ul{margin:0;padding-left:22px}
+.up-short li{font-size:18.5px;margin:6px 0}
+.up-short-more{margin:10px 0 0}
+.up-short-more a{font-weight:700;color:#1d5fbf}
+.up-ask{max-width:900px;margin:26px auto;padding:0 20px}
+.wrap .up-ask{padding:0;margin:26px 0}
+.up-ask ul{margin:0;padding-left:22px}
+.up-ask li{font-size:18px;margin:10px 0}
+p.added,div.added{background:#eaf2ff;border-left:3px solid #2b7de9;padding:8px 12px;font-size:.97rem;margin:8px 0}
+div.added ul{margin:6px 0 0;padding-left:20px}
+@media(max-width:940px){.up-short{margin-left:16px;margin-right:16px}}
+
+.hw-steps{list-style:none;margin:0;padding:0;counter-reset:st;max-width:none}
+.hw-steps li{counter-increment:st;position:relative;background:#fff;border:1px solid var(--rule);border-left:6px solid var(--slate);padding:14px 18px 14px 74px;margin-bottom:12px;font-size:1rem}
+.hw-steps li::before{content:counter(st);position:absolute;left:16px;top:14px;width:42px;height:42px;border-radius:50%;background:var(--slate);color:#fff;font:700 1.2rem/42px Arial,sans-serif;text-align:center}
+.hw-steps li b.t{display:block;font-family:Arial,sans-serif;font-size:1.1rem;color:var(--slate-deep);margin-bottom:4px}
+.hw-steps li .rec{display:block;font-family:Arial,sans-serif;font-size:.86rem;color:var(--ink-soft);margin-top:6px}
+.side2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.side2>div{background:var(--box);border:1px solid var(--rule);padding:14px 18px}
+.side2 h3{margin:0 0 6px;font-size:1.1rem}
+@media(max-width:700px){.side2{grid-template-columns:1fr}}
+.map-note{font-family:Arial,sans-serif;font-size:.86rem;color:var(--ink-soft)}
+</style>
+
+</head>
+<body>
+<div class="hb-bar"><a href="https://webercountyhive.substack.com/" target="_blank" rel="noopener"><img src="uhp-badge.png" alt="Utah Hive Politics logo"><span><span class="hb-name">Utah Hive Politics</span><span class="hb-sub">from the publisher of The Weber County Hive</span><span class="hb-line-top">The people's publication. We investigate what's best for the public as a whole, not any party or special interest.</span></span></a></div>
+<div class="up-top"><div class="in"><span><a href="index.html">&larr; All How We Found It pages</a> &nbsp;&middot;&nbsp; <a href="https://weber-county-hive.github.io/-weber-county-hive-index/">Hive library &#8599;</a></span></div></div>
+<header class="case-header"><div class="case-wrap">
+<p class="case-eyebrow">HOW WE FOUND IT &middot; CAMPAIGN MONEY &middot; 2026 &middot; HW 100.01</p>
+<h1 class="case-title">Tactical Campaigns, the PAC and the party: <em>how we traced the money.</em></h1>
+<p class="case-sub">A campaign firm, a political action committee and the Utah Republican Party all show up in the same 2026 money reports. This page shows each step we took to trace them, and the public record behind each step.</p>
+<div class="meta-row"><span class="meta-pill">Records: state, county and federal filings</span><span class="meta-pill">Business records: Utah Division of Corporations</span><span class="meta-pill">Figures as of Nov. 18, 2026</span></div>
+<p class="pub-date">Posted Nov. 18, 2026 &middot; Updated Nov. 18, 2026</p>
+</div></header>
+<div class="up-ww"><div class="up-where"><div class="up-where-h"><div class="up-lbl">WHERE</div><div class="pl">Statewide &middot; Salt Lake City (party and PAC offices) &middot; Utah County (Provo, Orem) &middot; Utah County Commission race</div></div><div class="up-who"><div class="up-who-h">WHO</div><ul>
+<li><b>Tactical Campaigns LLC</b>: campaign firm; members Joe DeBose and Michael Melendez</li>
+<li><b>Right Hook Strategies LLC</b>: only member Michael Melendez</li>
+<li><b>Prosperous Utah Communities</b>: a registered PAC; directors David Herring and Walter Plumb, treasurer Mike McCauley, CPA</li>
+<li><b>Utah Republican Party (State)</b>: chair Robert Axson, treasurer Jason Knavel</li>
+<li><b>Hemmco LLC</b> (Dan Hemmert's lobbying firm), <b>Walter Plumb</b> and <b>John Pestana</b>: gave the PAC its money</li>
+<li><b>Brent Bowles</b> (Utah County Commission candidate) and <b>Rep. Jim Alvey</b> (HD-10): their postage payments line up with the party's report</li>
+</ul></div></div></div>
+<main>
+<div class="hs-plain">New to this? <a class="hs-btn" href="tactical-pac-party-plain.html">Read it in plain words</a> About 450 words, with one picture.</div>
+
+<section class="hs-short"><h2>The short version</h2><ul>
+<li>It started with <b>a tip</b> about Joe DeBose and his firm, Tactical Campaigns. We checked every part of it against public records.</li>
+<li>Candidates and PACs paid Tactical <b>$131,351.81</b> in 2026. The Utah Republican Party reported <b>14 entries from Tactical totaling $71,600</b>, listed as contributions with no purpose given.</li>
+<li>A PAC called <b>Prosperous Utah Communities</b> took in <b>$70,000</b> and paid <b>$50,000 to Right Hook Strategies</b>, a company whose only member is Tactical's Michael Melendez. It also paid Tactical <b>$4,904.99</b>.</li>
+<li>The PAC reported paying the party <b>$8,730</b> in three payments. The party's report lists the same three amounts as coming from <b>Brent Bowles' campaign</b>. Bowles' own report lists one payment to the party, <b>$11,695</b>.</li>
+<li>The PAC's treasurer, Mike McCauley, lists his office at <b>420 E South Temple, Suite 390</b>. That's the address on the party's federal filings and the address the party requires on postage-paid mailers.</li>
+<li>The records show who paid whom and when. They don't say why. A matching amount or address is a match only.</li>
+</ul>
+<div class="callout"><strong>What was disclosed.</strong> Every amount on this page is public because it was reported. The PAC is registered and filed its 2026 reports. The party, Tactical's paying campaigns and Rep. Alvey filed theirs with the state. Brent Bowles filed his pre-primary report with Utah County, dated June 15, before the June 23 primary.</div></section>
+
+<section class="checked" aria-label="How this was checked"><h2>How this was checked</h2><ul>
+<li><b>Utah Republican Party (State), 2026:</b> the full report downloaded from disclosures.utah.gov on Nov. 18, 2026. All 491 lines read, then totaled by script.</li>
+<li><b>Prosperous Utah Communities, 2026:</b> the full report downloaded from disclosures.utah.gov on Nov. 18, 2026. All 14 lines read, then totaled by script.</li>
+<li><b>Payments to Tactical Campaigns:</b> disclosures.utah.gov Advanced Search, Expenditures, 2026, payee "Tactical Campaigns," Nov. 18, 2026. 20 result lines copied and added up.</li>
+<li><b>Business records:</b> Utah Division of Corporations records for Tactical, Right Hook Strategies, Veracity Enterprises, Hemmco and the Prosperous Utah Communities nonprofit, read on screen or from copied records (June 27 and Nov. 18, 2026).</li>
+<li><b>Brent Bowles:</b> his handwritten "7 Days before Primary" report, dated June 15, 2026, from Utah County's financial declarations list. Read by eye, page by page.</li>
+<li><b>Federal filings:</b> the Utah Republican Party's FEC Form 1 (July 20, 2024, and Oct. 30, 2025) and a May 2025 Form 3X. Text pulled from the filings.</li>
+<li><b>Party rules:</b> the Utah GOP County Leadership Handbook's "Indicia Mailing" section, read on the live page Nov. 18, 2026.</li>
+<li><b>Not included:</b> anything filed after Nov. 18, 2026, and Tactical's 2024 and 2025 records.</li>
+</ul></section>
+
+<nav class="hs-toc" aria-label="On this page"><a href="#steps">How we found it</a><a href="#maps">The money maps</a><a href="#where">Where they are</a><a href="#whois">Who they are</a><a href="#who">Who we traced</a><a href="#payers">Who paid Tactical</a><a href="#match">Same amounts, different names</a><a href="#unknown">What isn't known</a><a href="#ask">Questions to ask</a><a href="#words">Words to know</a><a href="#sources">Sources</a></nav>
+
+<section id="steps"><h2 class="section-head">How we found it</h2>
+<ol class="hw-steps">
+<li><b class="t">A tip</b>It started with a tip about Joe DeBose and Tactical Campaigns. We treated it as a lead only.<span class="rec">Record: none yet. A tip is where we start, not what we report.</span></li>
+<li><b class="t">Our research database</b>We searched our own database of earlier research. It had June 2026 business records for Tactical and Right Hook Strategies, and Utah lobbyist register records.<span class="rec">Records: Utah Division of Corporations; Utah lobbyist register</span></li>
+<li><b class="t">State campaign money reports</b>We searched every 2026 payment to Tactical, then downloaded the Utah Republican Party's full 2026 report and read all 491 lines.<span class="rec">Record: disclosures.utah.gov</span></li>
+<li><b class="t">State business records</b>The Division of Corporations shows who owns each company: Tactical, Right Hook Strategies, Veracity Enterprises, Hemmco, and a nonprofit with the PAC's name.<span class="rec">Record: Utah Division of Corporations business search</span></li>
+<li><b class="t">Following the PAC</b>The PAC's registration names its officers. Its 2026 report shows $70,000 in and where it went out.<span class="rec">Records: PAC Statement of Organization; PAC 2026 report</span></li>
+<li><b class="t">County reports</b>Brent Bowles ran for Utah County Commission, so he files with the county, not the state. We found his handwritten report on the county's list.<span class="rec">Record: Utah County financial declarations</span></li>
+<li><b class="t">Party rules and federal filings</b>The party handbook explains the postage program and the address it requires on mailers. The party's FEC filings show the same address.<span class="rec">Records: Utah GOP County Leadership Handbook; FEC Form 1</span></li>
+<li><b class="t">Lining them up</b>We set the reports side by side. Three amounts show up on the PAC's report and the party's report under different payer names. Jim Alvey's postage amounts match the party's report exactly.<span class="rec">Records: all of the above, compared line by line</span></li>
+</ol></section>
+
+<section id="maps"><h2 class="section-head">The money maps</h2>
+<h3>1. Who owns what</h3>
+<div class="flow"><div class="flow-row three">
+<div class="fbox"><div class="fh">Tactical Campaigns LLC</div>Members: Joe DeBose and Michael Melendez</div>
+<div class="fbox co"><div class="fh">Right Hook Strategies LLC</div>Only member: Michael Melendez</div>
+<div class="fbox pub"><div class="fh">Prosperous Utah Communities</div>PAC directors: David Herring, Walter Plumb. Treasurer: Mike McCauley, CPA</div>
+</div><p class="diagram-caption">Source: Utah Division of Corporations; PAC Statement of Organization</p></div>
+
+<h3>2. The PAC's money in 2026</h3>
+<div class="flow">
+<div class="flow-row"><div class="fbox"><div class="fh">Money in: $70,000</div>Hemmco LLC $50,000 &middot; Walter Plumb $15,000 &middot; John Pestana $5,000</div></div>
+<div class="arrow">&darr;</div>
+<div class="flow-row"><div class="fbox main"><div class="fh">Prosperous Utah Communities</div></div></div>
+<div class="arrow">&darr;<span>money out, all marked "Advertising"</span></div>
+<div class="flow-row three">
+<div class="fbox co"><div class="fh">$50,000</div>Right Hook Strategies</div>
+<div class="fbox"><div class="fh">$8,730</div>Utah Republican Party</div>
+<div class="fbox"><div class="fh">$11,094.99</div>Veracity Enterprises $6,190 &middot; Tactical $4,904.99</div>
+</div><p class="diagram-caption">Source: Prosperous Utah Communities 2026 report ($69,839.99 out, plus a $15 bank fee)</p></div>
+
+<h3>3. Tactical and the party's postage program</h3>
+<div class="flow">
+<div class="flow-row"><div class="fbox"><div class="fh">$131,351.81</div>Candidates and PACs paid Tactical in 2026</div></div>
+<div class="arrow">&darr;</div>
+<div class="flow-row"><div class="fbox main"><div class="fh">Utah Republican Party</div>Reported 14 entries from Tactical, $71,600, listed as contributions</div></div>
+<div class="arrow">&darr;<span>the handbook says candidates donate the postage to the party</span></div>
+<div class="flow-row"><div class="fbox pub"><div class="fh">$305,345.98</div>The party paid USPS</div></div>
+<p class="diagram-caption">Sources: disclosures.utah.gov; Utah GOP County Leadership Handbook</p></div>
+</section>
+
+<section id="where"><h2 class="section-head">Where they are</h2>
+<svg viewBox="0 0 860 540" role="img" aria-label="Map of offices named in the filings, in Salt Lake City and Utah County" style="width:100%;height:auto;background:#eef6f5;border:1px solid var(--rule)">
+<text x="30" y="48" font-family="Arial" font-size="26" font-weight="700" fill="#0b3b38">Salt Lake City</text>
+<rect x="30" y="66" width="560" height="220" rx="12" fill="#fff" stroke="#115e59" stroke-width="3"/>
+<circle cx="70" cy="132" r="14" fill="#2b7de9"/><text x="96" y="126" font-family="Arial" font-size="20" font-weight="700" fill="#14213d">420 E South Temple, Suite 390</text><text x="96" y="152" font-family="Arial" font-size="17" fill="#14213d">Party's federal address; PAC treasurer's office</text>
+<circle cx="70" cy="222" r="14" fill="#115e59"/><text x="96" y="216" font-family="Arial" font-size="20" font-weight="700" fill="#14213d">370 E South Temple, Suite 580</text><text x="96" y="242" font-family="Arial" font-size="17" fill="#14213d">Prosperous Utah Communities</text>
+<line x1="300" y1="292" x2="420" y2="372" stroke="#115e59" stroke-width="3" stroke-dasharray="8 6"/><text x="440" y="336" font-family="Arial" font-size="17" fill="#4a5466">about 45 miles south</text>
+<text x="270" y="400" font-family="Arial" font-size="26" font-weight="700" fill="#0b3b38">Utah County</text>
+<rect x="270" y="416" width="560" height="110" rx="12" fill="#fff" stroke="#115e59" stroke-width="3"/>
+<circle cx="310" cy="450" r="14" fill="#115e59"/><text x="336" y="457" font-family="Arial" font-size="19" font-weight="700" fill="#14213d">Center Street, Orem: Herring and Veracity</text>
+<circle cx="310" cy="494" r="14" fill="#2b7de9"/><text x="336" y="501" font-family="Arial" font-size="19" font-weight="700" fill="#14213d">Provo: county filings (Bowles)</text>
+</svg>
+<p class="map-note">Offices named in the filings, not drawn to scale. Home addresses are left off.</p>
+</section>
+
+<section id="whois"><h2 class="section-head">Who they are</h2>
+<section class="up-connect" style="margin:0"><ul>
+<li><a href="https://weber-county-hive.github.io/candidates2026/hd27-loubet-oates.html">Tactical Campaigns LLC</a><span>A campaign firm in Provo, formed May 30, 2017. Its members are Joe DeBose, listed in Marion, Illinois, and Michael Melendez. Campaign reports describe its work as strategy and marketing, video, data, mailers, TV ads and text messages.</span></li>
+<li><b>Joe (William Joseph) DeBose</b><span>A member of Tactical Campaigns. Its business record lists him in Marion, Illinois.</span></li>
+<li><b>Michael Melendez</b><span>A member of Tactical and the only member of Right Hook Strategies. He is a registered lobbyist for the Libertas Institute, a Utah think tank, and Ballotpedia lists him as its executive vice president (Sept. 2025).</span></li>
+<li><b>Right Hook Strategies LLC</b><span>Formed Oct. 30, 2023. Besides the PAC's $50,000, it was paid $10,000 by Preserve Orem (Oct. 28, 2025) and $20,000 by Daniel McCay's campaign (June 8, 2026).</span></li>
+<li><b>Prosperous Utah Communities</b><span>A registered political action committee since Nov. 1, 2019. A nonprofit with the same name and address was formed two days earlier and dissolved in 2021.</span></li>
+<li><a href="https://weber-county-hive.github.io/candidates2026/hd39-ivory-howells.html">David Herring and Veracity Enterprises LLC</a><span>Herring is a PAC director and a registered lobbyist since 2019. He manages Veracity Enterprises, which describes itself as a political consulting firm. The state lists Veracity as administratively dissolved on April 21, 2026, before the PAC's June 2026 payments to it. Veracity gave the PAC $19,591 in 2024.</span></li>
+<li><b>Walter Plumb</b><span>A PAC director. The PAC's record lists him as self-employed at 201 S Main St, Suite 2000, Salt Lake City, the same office address listed for Salt Lake attorney Walter J. Plumb III.</span></li>
+<li><a href="https://weber-county-hive.github.io/Unelected-Power/dan-hemmert.html">Hemmco LLC (Dan Hemmert)</a><span>Dan Hemmert's lobbying firm. Hemmert was a state senator (SD-14, 2016 to Jan. 2021), then Gov. Spencer Cox's first executive director of the Governor's Office of Economic Opportunity (2021 to Dec. 2022). He lobbied as Hemmco from 2023 until August 2026, when he became executive director of the Military Installation Development Authority (MIDA). Hemmco's $50,000 to the PAC came in June 2026.</span></li>
+<li><b>John Pestana</b><span>The PAC lists John Pestana of Provo. Omniture co-founder and ObservePoint CEO John Pestana lives in Provo and chairs the Libertas Institute's board, where Michael Melendez works. That is a name-and-city match; the PAC's report lists no job for him.</span></li>
+<li><b>Mike McCauley, CPA (McCauley &amp; Associates)</b><span>A Salt Lake political compliance firm. McCauley is the PAC's treasurer. His office, 420 E South Temple, Suite 390, is also the address the party uses on its federal filings, and the address the House Speaker Leadership PAC uses on Rep. Mike Ivory's reports.</span></li>
+<li><a href="https://weber-county-hive.github.io/Unelected-Power/utgop-state-indicia.html">Utah Republican Party (State)</a><span>Holds the nonprofit postage permit (#1863) used for candidate mailers. Chair Robert Axson; treasurer Jason Knavel.</span></li>
+<li><b>Brent Bowles</b><span>A Republican candidate for Utah County Commission, Seat A. He was out in the June primary.</span></li>
+<li><a href="https://weber-county-hive.github.io/candidates2026/hd10-lesser-alvey.html">Rep. Jim Alvey</a><span>Utah House District 10, Weber County.</span></li>
+</ul></section></section>
+
+<section id="who"><h2 class="section-head">Who we traced, and the record that shows it</h2>
+<div class="tbl-wrap"><table class="money">
+<tr><th>Person or group</th><th>What the record shows</th><th>The record</th></tr>
+<tr><td><b>Joe (William Joseph) DeBose</b></td><td>Member of Tactical Campaigns LLC. Gave the party $613.08 and $783.01 (June 15 and 16). The party paid him $4,287.29, listed as "Other" (Oct. 5).</td><td>Division of Corporations #10395907-0160; Utah GOP 2026 report</td></tr>
+<tr><td><b>Michael Melendez</b></td><td>Member of Tactical Campaigns. Only member of Right Hook Strategies LLC. Registered lobbyist (Libertas Institute).</td><td>Division of Corporations #10395907-0160 and #13604921-0160; lobbyist register</td></tr>
+<tr><td><b>Prosperous Utah Communities</b></td><td>PAC registered Nov. 1, 2019, at 370 E South Temple, Suite 580. Directors David Herring and Walter Plumb; treasurer Mike McCauley, CPA.</td><td>PAC Statement of Organization</td></tr>
+<tr><td><b>Nonprofit with the same name</b></td><td>Formed Oct. 30, 2019, two days before the PAC; dissolved Jan. 27, 2021. Directors as filed: David Kyle Kerring, Greg Frazier, Donald Webb Guymon. Guymon and Frazier are not on the PAC's record.</td><td>Division of Corporations #11518934-0140</td></tr>
+<tr><td><b>David Herring</b></td><td>PAC director. Manager of Veracity Enterprises LLC, which got $6,190 from the PAC in 2026. Registered lobbyist.</td><td>PAC registration; Division of Corporations; lobbyist register</td></tr>
+<tr><td><b>Walter Plumb</b></td><td>PAC director. Gave the PAC $15,000.</td><td>PAC registration; PAC 2026 report</td></tr>
+<tr><td><b>Hemmco LLC</b> (Dan Hemmert)</td><td>Gave the PAC $50,000 in two $25,000 payments (June 16 and 25). Hemmco is a registered lobbying firm.</td><td>PAC 2026 report; lobbyist register</td></tr>
+<tr><td><b>John Pestana</b></td><td>Gave the PAC $5,000 (June 23).</td><td>PAC 2026 report</td></tr>
+<tr><td><b>Mike McCauley, CPA</b></td><td>PAC treasurer. His office, 420 E South Temple, Suite 390, is the address on the party's federal filings and on the handbook's mailer rules. A 2005 FEC letter is signed "Mike McCauley, Treasurer" of the Utah Republican Party.</td><td>PAC registration; FEC Form 1 (July 20, 2024); FEC 2005 letter; Utah GOP handbook</td></tr>
+<tr><td><b>Utah Republican Party</b></td><td>Reported 14 entries from Tactical, $71,600, with no purpose given. Paid USPS $305,345.98. Paid Tactical $1,350 (Jan. 20).</td><td>Utah GOP 2026 report; state party registration</td></tr>
+<tr><td><b>Brent Bowles campaign</b></td><td>The party credited the campaign $33,230. Bowles' own report lists one party payment, $11,695 for "Bulk Mailing Flyers" (May 29).</td><td>Utah GOP 2026 report; Bowles' county report dated June 15, 2026</td></tr>
+<tr><td><b>Rep. Jim Alvey</b> (HD-10)</td><td>Reported $10,210 to "State Inicia" in three payments. The party's report shows the same three amounts from "Vote Jim Alvey."</td><td>Alvey 2026 report; Utah GOP 2026 report</td></tr>
+</table></div></section>
+
+<section id="payers"><h2 class="section-head">Who paid Tactical in 2026</h2>
+<div class="tbl-wrap"><table class="money">
+<tr><th>Payer</th><th>Who</th><th>Payments</th><th>Total</th></tr>
+<tr><td>Grant Pace</td><td>Candidate campaign</td><td>3</td><td class="n">$26,825.00</td></tr>
+<tr><td>Trevor Lee</td><td>Former state representative</td><td>2</td><td class="n">$26,243.90</td></tr>
+<tr><td><a href="https://weber-county-hive.github.io/candidates2026/sd6-tran-neal.html">Tamara Tran</a></td><td>SD-6 candidate</td><td>4</td><td class="n">$24,900.56</td></tr>
+<tr><td>Adams Leadership PAC</td><td>A PAC (name as filed)</td><td>5</td><td class="n">$18,262.73</td></tr>
+<tr><td>Jason Kyle</td><td>Rep., HD-8</td><td>1</td><td class="n">$14,200.04</td></tr>
+<tr><td>John Knotwell</td><td>State Senate campaign</td><td>2</td><td class="n">$13,514.59</td></tr>
+<tr><td>Prosperous Utah Communities</td><td>The PAC on this page</td><td>1</td><td class="n">$4,904.99</td></tr>
+<tr><td><a href="https://weber-county-hive.github.io/candidates2026/sd21-brammer-smith-myers-woodfield.html">Brady Brammer</a> (filed as "Tactical Campaign")</td><td>SD-21 candidate</td><td>1</td><td class="n">$2,500.00</td></tr>
+<tr><td>Utah Republican Party</td><td>The state party</td><td>1</td><td class="n">$1,350.00</td></tr>
+<tr class="total"><td>Total</td><td></td><td>20</td><td class="n">$132,701.81</td></tr>
+</table></div>
+<p class="added"><b>New data, Nov. 18, 2026:</b> Our <a href="https://weber-county-hive.github.io/Unelected-Power/utgop-state-indicia.html">State Party Indicia page</a> (Nov. 8) shows candidates and PACs paying Tactical $117,151.77. Jason Kyle's $14,200.04 payment on Oct. 29 has turned up since then. With it, candidates and PACs paid Tactical $131,351.81, not counting the party's own $1,350.</p>
+</section>
+
+<section id="match"><h2 class="section-head">Same amounts, different names</h2>
+<h3>The PAC's payments and the party's receipts</h3>
+<div class="tbl-wrap"><table class="money">
+<tr><th>Amount</th><th>PAC's report: paid to the party</th><th>Party's report: received from</th></tr>
+<tr><td class="n">$2,965.00</td><td>May 21, "Advertising"</td><td>"Campaign Of Brent Bowles," May 28</td></tr>
+<tr><td class="n">$3,085.00</td><td>May 22, "Advertising"</td><td>"Campaign Of Brent Bowles," May 28</td></tr>
+<tr><td class="n">$2,680.00</td><td>June 9, "Advertising"</td><td>"Campaign Of Brent Bowles," June 8</td></tr>
+<tr class="total"><td class="n">$8,730.00</td><td>Prosperous Utah Communities</td><td>Brent Bowles' campaign</td></tr>
+</table></div>
+<div class="side2">
+<div><h3>What the party credited Bowles</h3><p>$33,230 in six entries, May 28 to June 8: $2,965, $3,085, $11,680, $1,140, $11,680 and $2,680. The two $11,680 entries are both dated May 29, and neither is marked as amended.</p></div>
+<div><h3>What Bowles' own report shows</h3><p>One payment to the party: $11,695 for "Bulk Mailing Flyers" on May 29, as handwritten. No money from the PAC, Tactical or Right Hook appears on his report.</p></div>
+</div>
+<h3>Jim Alvey's "State Inicia" payments</h3>
+<div class="tbl-wrap"><table class="money">
+<tr><th>Alvey's report: "State Inicia"</th><th>Party's report: "Vote Jim Alvey"</th></tr>
+<tr><td class="n">$3,140.00</td><td>$3,140.00 (Sept. 22)</td></tr>
+<tr><td class="n">$3,925.00</td><td>$3,925.00 (Oct. 1)</td></tr>
+<tr><td class="n">$3,145.00</td><td>$3,145.00 (Oct. 2)</td></tr>
+<tr class="total"><td class="n">$10,210.00</td><td>$10,210.00</td></tr>
+</table></div>
+</section>
+
+<section id="unknown"><h2 class="section-head">What isn't known</h2>
+<details class="gl"><summary>What Tactical's $71,600 was for</summary><p>The party lists Tactical's 14 entries as contributions with no purpose, and they aren't marked as in-kind. Whether any of it paid for candidates' postage isn't shown.</p></details>
+<details class="gl"><summary>Why one set of payments has two payer names</summary><p>The PAC says it paid the party $8,730. The party lists the same amounts under Bowles' campaign. The records don't say which is right, or whether both are.</p></details>
+<details class="gl"><summary>$11,695 or $11,680</summary><p>Bowles' report shows $11,695, handwritten. The party shows $11,680 on the same day, twice. Whether this is one payment, two, or a reading of the handwriting isn't known.</p></details>
+<details class="gl"><summary>Bowles' later report</summary><p>On the county's list, the "30 Days after Primary" spot for Bowles is blank. We didn't ask the county whether a report was filed.</p></details>
+<details class="gl"><summary>"David Herring" and "David Kyle Kerring"</summary><p>The PAC lists director David Herring of Orem. The same-name nonprofit lists David Kyle Kerring of Orem. Veracity's manager is listed as David Kyle Herring. The spellings are as filed. The records don't say whether they are one person.</p></details>
+<details class="gl"><summary>Thomas Young</summary><p>The tip named Thomas Young as part of Tactical's polling work. The 2026 records don't name him. A 2023 national polling conference program lists a course he taught on using cell phone tracking for predictive polling.</p></details>
+</section>
+
+<section id="ask"><h2 class="section-head">Questions to ask, and who to ask</h2>
+<ul class="ask-list">
+<li><strong>Utah Republican Party:</strong> What were Tactical Campaigns' 14 entries ($71,600) for? Why are three payments the PAC says it made listed under Brent Bowles' campaign?</li>
+<li><strong>Utah County Elections:</strong> Did Brent Bowles file a report for 30 days after the primary?</li>
+<li><strong>Lieutenant Governor's elections office:</strong> When a candidate, PAC or vendor pays for mail postage through the party, how should each side report it?</li>
+</ul></section>
+
+<section><h2 class="section-head" id="words">Words to know</h2>
+<p>Tap a card to see what it means.</p>
+<div class="hs-flips">
+<button class="hs-flip" aria-expanded="false"><div class="ft">PAC</div><div class="fh">Tap to see</div><div class="fd">A political action committee. It raises money and spends it on elections, and it has to report both.</div></button>
+<button class="hs-flip" aria-expanded="false"><div class="ft">LLC member</div><div class="fh">Tap to see</div><div class="fd">An owner of a limited liability company. The state's business records list members or managers.</div></button>
+<button class="hs-flip" aria-expanded="false"><div class="ft">Registered agent</div><div class="fh">Tap to see</div><div class="fd">The person or company that accepts legal papers for a business. It isn't always an owner.</div></button>
+<button class="hs-flip" aria-expanded="false"><div class="ft">Statement of Organization</div><div class="fh">Tap to see</div><div class="fd">A PAC's sign-up form with the state. It lists the PAC's officers and address.</div></button>
+<button class="hs-flip" aria-expanded="false"><div class="ft">Indicia</div><div class="fh">Tap to see</div><div class="fd">The printed postage box in the corner of bulk mail, in place of a stamp. It names the permit holder.</div></button>
+<button class="hs-flip" aria-expanded="false"><div class="ft">Report export</div><div class="fh">Tap to see</div><div class="fd">A spreadsheet file of every line in a filer's report, downloaded from the state's disclosure site.</div></button>
+</div></section>
+
+<section><h2 class="section-head" id="behind">Behind this piece</h2>
+<div class="hs-counter">
+<div><div class="n">525</div><div class="l">report lines read</div></div>
+<div><div class="n">6</div><div class="l">business and PAC records</div></div>
+<div><div class="n">4</div><div class="l">federal filings</div></div>
+<div><div class="n">1</div><div class="l">handwritten county report</div></div>
+<div><div class="n">8</div><div class="l">steps to trace it</div></div>
+</div>
+<p class="hs-updates">Figures are a snapshot of the records as of Nov. 18, 2026. Later filings will be added as new data with their dates.</p></section>
+
+<section><h2 class="section-head" id="updates">Updates since this was posted</h2>
+<ul class="tl"><li><b>Nov. 18, 2026</b>This page posted.</li></ul>
+<p class="hs-updates">New updates will be added here with their dates. Earlier entries are not changed.</p></section>
+
+<section class="up-connect"><h2>Connecting stories</h2><ul>
+<li><a href="tactical-pac-party-plain.html">This trail in plain words (HW 100.02)</a><span>The short companion to this page.</span></li>
+<li><a href="https://weber-county-hive.github.io/Unelected-Power/utgop-state-indicia.html">The State Party Indicia (UP 100.13)</a><span>Unelected Power: the party's postage program, USPS rules and the 2026 records.</span></li>
+<li><a href="https://weber-county-hive.github.io/Unelected-Power/dan-hemmert.html">Dan Hemmert</a><span>Unelected Power: Hemmco's owner.</span></li>
+<li><a href="https://weber-county-hive.github.io/candidates2026/hd10-lesser-alvey.html">HD-10: Lesser vs. Alvey</a><span>candidates2026: Alvey's 2026 money, including "State Inicia."</span></li>
+<li><a href="https://weber-county-hive.github.io/candidates2026/sd6-tran-neal.html">SD-6: Tran vs. Neal</a><span>candidates2026: Tamara Tran's payments to Tactical.</span></li>
+<li><a href="https://weber-county-hive.github.io/candidates2026/sd21-brammer-smith-myers-woodfield.html">SD-21: Brammer</a><span>candidates2026: Brady Brammer's payment filed as "Tactical Campaign."</span></li>
+<li><a href="https://weber-county-hive.github.io/candidates2026/hd27-loubet-oates.html">HD-27: Loubet vs. Oates</a><span>candidates2026: Tactical Campaigns among Loubet's top vendors since 2020.</span></li>
+<li><a href="https://weber-county-hive.github.io/candidates2026/sd23-grover-smith.html">SD-23: Grover vs. Smith</a><span>candidates2026: Sen. Keith Grover paid Tactical $25,564.84 in 2022, plus Veracity Enterprises.</span></li>
+<li><a href="https://weber-county-hive.github.io/candidates2026/hd39-ivory-howells.html">HD-39: Ivory vs. Howells</a><span>candidates2026: Veracity Enterprises, its gifts to Prosperous Utah Communities, and the PAC's officers.</span></li>
+<li><a href="where-to-look.html">Where to look</a><span>How We Found It: the records we used, with links.</span></li>
+</ul></section>
+
+<section id="sources" class="up-sources"><h2>Sources</h2><details class="sources-block"><summary>Sources: click to open (with links)</summary><ul>
+<li><a href="https://disclosures.utah.gov/" target="_blank" rel="noopener">disclosures.utah.gov</a>: Utah Republican Party (State) 2026 report; Prosperous Utah Communities 2026 report and Statement of Organization; Advanced Search, Expenditures, 2026, payee "Tactical Campaigns" (all Nov. 18, 2026); Utah lobbyist register</li>
+<li><a href="https://secure.utah.gov/bes/" target="_blank" rel="noopener">Utah Division of Corporations business search</a>: Tactical Campaigns LLC #10395907-0160; Right Hook Strategies LLC #13604921-0160; Prosperous Utah Communities nonprofit #11518934-0140; Veracity Enterprises LLC #12575530-0160; Hemmco LLC #8996210-0160</li>
+<li><a href="https://vote.utahcounty.gov/financial-disclosures" target="_blank" rel="noopener">Utah County financial disclosures</a>, and <a href="https://drive.google.com/file/d/1UOpynFWOGl-NDxZzCleuOD-OyLsx_6O2" target="_blank" rel="noopener">Brent Bowles' "7 Days before Primary" report, dated June 15, 2026</a></li>
+<li><a href="https://www.fec.gov/data/committee/C00089482/" target="_blank" rel="noopener">FEC: Utah Republican Party federal committee C00089482</a>: Form 1 (July 20, 2024; Oct. 30, 2025); May 2025 Form 3X</li>
+<li><a href="https://utgop.org/county_leadership_handbook" target="_blank" rel="noopener">Utah GOP County Leadership Handbook, "Indicia Mailing" section</a> (updated May 12, 2025)</li>
+<li><a href="https://libertas.org/?p=37" target="_blank" rel="noopener">Libertas Institute, Board of Trustees</a>; <a href="https://ballotpedia.org/Libertas_Institute" target="_blank" rel="noopener">Ballotpedia: Libertas Institute</a> (leadership and board as of Sept. 2025)</li>
+<li><a href="https://www.avvo.com/attorneys/84111-ut-walter-plumb-4466007.html" target="_blank" rel="noopener">Attorney listing, Walter J. Plumb III, 201 S Main St, Suite 2000</a></li>
+<li><a href="https://www.aapor.org/" target="_blank" rel="noopener">AAPOR 78th annual conference program, short courses (May 2023)</a></li>
+</ul></details></section>
+</main>
+
+<footer class="up-foot"><div class="in"><p><b>How We Found It</b> shows the trail behind each Hive case: where we looked, what each record showed, and how the pieces lined up.</p><p><a href="index.html">All How We Found It pages</a> &middot; <a href="where-to-look.html">Where to look</a></p></div></footer>
+<div class="hb-foot"><img src="hive-bee.png" alt=""><span class="hb-name">Utah Hive Politics</span><span class="hb-sub">from the publisher of The Weber County Hive</span><span class="hb-tag">Independent &middot; Accountability &middot; Journalism</span><p class="hb-line">The Weber County Hive and Utah Hive Politics: the people's publication. We investigate what's best for the public as a whole, not for any party or special interest group. We report public records. You decide.</p><p class="hb-tips"><a class="hb-btn" href="https://weber-county-hive.github.io/-weber-county-hive-index/tips.html#send">Send a tip</a><a class="hb-btn hb-btn2" href="https://weber-county-hive.github.io/-weber-county-hive-index/tips.html">Tips we checked</a><a class="hb-btn hb-btn2" href="https://weber-county-hive.github.io/-weber-county-hive-index/tips.html#send">See a mistake? Tell us</a></p><p class="hb-small">We never name tipsters. When we correct a page, the fix and its date are shown on the page.</p><p class="hb-small"><a href="index.html" style="color:#d4af37">How We Found It shelf</a> &middot; <a href="https://weber-county-hive.github.io/-weber-county-hive-index/" style="color:#d4af37">Master Index (Hive library)</a> &middot; <a href="https://webercountyhive.substack.com/" style="color:#d4af37">Read on Substack</a></p></div>
+<script>
+document.querySelectorAll('.hs-flip').forEach(function(f){f.addEventListener('click',function(){f.setAttribute('aria-expanded',f.getAttribute('aria-expanded')==='true'?'false':'true');});});
+</script>
+<script data-goatcounter="https://weberhive.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
+</html>
